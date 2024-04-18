@@ -194,6 +194,27 @@ define_resource_object! {
         pub web_url: Option<Url>,
     }
 
+    /// User resource type
+    ///
+    /// The drive resource is the top level object representing a user's OneDrive
+    /// or a document library in SharePoint.
+    ///
+    /// # See also
+    /// [Microsoft Docs](https://docs.microsoft.com/en-us/graph/api/resources/drive?view=graph-rest-1.0)
+    pub struct User #UserItemField {
+       pub business_phones: Option<Vec<String>>,
+       pub display_name: Option<String>,
+       pub given_name: Option<String>,
+       pub job_title: Option<String>,
+       pub mail: Option<String>,
+       pub mobile_phone: Option<String>,
+       pub office_location: Option<String>,
+       pub preferred_language: Option<String>,
+       pub surname: Option<String>,
+       pub user_principal_name: Option<String>,
+       pub id: Option<String>,
+    }
+
     /// DriveItem resource type
     ///
     /// The `DriveItem` resource represents a file, folder, or other item stored in a drive.

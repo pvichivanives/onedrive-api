@@ -17,6 +17,7 @@ pub struct Permission {
     write: bool,
     access_shared: bool,
     offline_access: bool,
+    read_user: bool,
 }
 
 impl Permission {
@@ -32,6 +33,13 @@ impl Permission {
     #[must_use]
     pub fn write(mut self, write: bool) -> Self {
         self.write = write;
+        self
+    }
+    
+    /// Set the read user permission.
+    #[must_use]
+    pub fn read_user(mut self, read_user: bool) -> Self {
+        self.read_user = read_user;
         self
     }
 
@@ -58,10 +66,11 @@ impl Permission {
     #[rustfmt::skip]
     fn to_scope_string(self) -> String {
         format!(
-            "{}{}{}",
+            "{}{}{}{}",
             if self.write { "files.readwrite" } else { "files.read" },
             if self.access_shared { ".all" } else { "" },
             if self.offline_access { " offline_access" } else { "" },
+            if self.read_user {" user.read"} else { "" },
         )
     }
 }
