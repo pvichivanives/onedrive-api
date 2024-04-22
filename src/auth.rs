@@ -222,12 +222,12 @@ impl Auth {
     /// # See also
     /// [Microsoft Docs](https://docs.microsoft.com/en-us/graph/auth-v2-user?view=graph-rest-1.0#authorization-request)
     #[must_use]
-    pub fn code_auth_url_with_state(&self,state: &str,redirect_uri: &Option<String>) -> Url {
+    pub fn code_auth_url_with_state(&self,state: &str,redirect_uri: Option<&String>) -> Url {
         let mut url = self.endpoint_url("authorize");
         url.query_pairs_mut()
             .append_pair("client_id", &self.client_id)
             .append_pair("scope", &self.permission.to_scope_string())
-            .append_pair("redirect_uri", redirect_uri.as_ref().unwrap_or(&self.redirect_uri))
+            .append_pair("redirect_uri", redirect_uri.unwrap_or(&self.redirect_uri))
             .append_pair("response_type", "code")
             .append_pair("state", state);
 
@@ -261,7 +261,7 @@ impl Auth {
         &self,
         code: &str,
         client_credential: &ClientCredential,
-        redirect_uri: &Option<String>
+        redirect_uri: Option<&String>
     ) -> Result<TokenResponse> {
         self.request_token(
             self.permission.offline_access,
@@ -269,7 +269,7 @@ impl Auth {
                 ("client_id", &self.client_id as &str),
                 ("code", code),
                 ("grant_type", "authorization_code"),
-                ("redirect_uri", redirect_uri.as_ref().unwrap_or(&self.redirect_uri)),
+                ("redirect_uri", redirect_uri.unwrap_or(&self.redirect_uri)),
             ]
             .into_iter()
             .chain(client_credential.params()),
