@@ -222,7 +222,7 @@ impl Auth {
     /// # See also
     /// [Microsoft Docs](https://docs.microsoft.com/en-us/graph/auth-v2-user?view=graph-rest-1.0#authorization-request)
     #[must_use]
-    pub fn code_auth_url_with_state(&self,state: &str,redirect_uri: Option<&String>) -> Url {
+    pub fn code_auth_url_with_state(&self,state: &str,redirect_uri: Option<&str>) -> Url {
         let mut url = self.endpoint_url("authorize");
         url.query_pairs_mut()
             .append_pair("client_id", &self.client_id)
@@ -261,7 +261,7 @@ impl Auth {
         &self,
         code: &str,
         client_credential: &ClientCredential,
-        redirect_uri: Option<&String>
+        redirect_uri: Option<&str>
     ) -> Result<TokenResponse> {
         self.request_token(
             self.permission.offline_access,
