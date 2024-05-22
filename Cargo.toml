@@ -30,7 +30,7 @@ beta = []
 [dependencies]
 # Compat with `reqwest`
 bytes = "1"
-reqwest = { version = "0.12", default-features = false, features = ["json", "gzip"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "gzip","rustls-tls"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 strum = { version = "0.26", features = ["derive"] }
